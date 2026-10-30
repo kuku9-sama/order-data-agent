@@ -1,7 +1,7 @@
 [project]
 name = "order-data-agent"
 version = "0.1.0"
-description = "中文订单分析助手（合成数据离线演示）"
+description = "中文订单分析助手：销售排行、退款统计与受限 SQL 查询"
 requires-python = ">=3.11,<3.13"
 dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "streamlit>=1.40,<2", "pydantic>=2.9,<3", "sqlglot>=26,<28", "httpx>=0.27,<1"]
 [dependency-groups]

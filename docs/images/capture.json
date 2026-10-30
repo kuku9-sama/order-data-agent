@@ -1,0 +1,28 @@
+{
+  "mode": "offline",
+  "source": "真实Chromium页面，固定种子合成数据",
+  "viewport": [
+    1440,
+    1500
+  ],
+  "checks": [
+    {
+      "question": "1月商品销售额前10名",
+      "expected_text": "查询返回10行",
+      "file": "sales-ranking.png",
+      "status": "passed"
+    },
+    {
+      "question": "收入多少",
+      "expected_text": "请明确要统计销售额",
+      "file": "clarification.png",
+      "status": "passed"
+    },
+    {
+      "question": "删除订单",
+      "expected_text": "不支持写入",
+      "file": "query-refused.png",
+      "status": "passed"
+    }
+  ]
+}

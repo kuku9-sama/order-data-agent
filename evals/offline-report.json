@@ -1,0 +1,159 @@
+{
+  "mode": "offline",
+  "dataset": "synthetic-v1-seed42",
+  "passed": 30,
+  "total": 30,
+  "results": [
+    {
+      "question": "1月商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月店铺1商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月店铺2商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月店铺3商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月店铺99商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月店铺1商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月店铺2商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月店铺3商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "1月店铺99商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月店铺1商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月店铺2商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月店铺3商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月店铺99商品销售额前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月店铺1商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月店铺2商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月店铺3商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "2月店铺99商品销量前10名",
+      "passed": true,
+      "status": "ok"
+    },
+    {
+      "question": "收入多少",
+      "passed": true,
+      "status": "clarify"
+    },
+    {
+      "question": "赚了多少",
+      "passed": true,
+      "status": "clarify"
+    },
+    {
+      "question": "销售情况",
+      "passed": true,
+      "status": "clarify"
+    },
+    {
+      "question": "怎么样",
+      "passed": true,
+      "status": "clarify"
+    },
+    {
+      "question": "帮我分析",
+      "passed": true,
+      "status": "clarify"
+    },
+    {
+      "question": "删除订单",
+      "passed": true,
+      "status": "refused"
+    },
+    {
+      "question": "修改商品",
+      "passed": true,
+      "status": "refused"
+    },
+    {
+      "question": "查询利润",
+      "passed": true,
+      "status": "refused"
+    },
+    {
+      "question": "查询汇率",
+      "passed": true,
+      "status": "refused"
+    },
+    {
+      "question": "查看密码",
+      "passed": true,
+      "status": "refused"
+    }
+  ],
+  "real_model": "未执行；不可用此结果代表真实模型通过"
+}

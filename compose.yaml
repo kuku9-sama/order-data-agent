@@ -1,0 +1,25 @@
+services:
+  api:
+    build: .
+    ports: ["127.0.0.1:8000:8000", "127.0.0.1:8501:8501"]
+    volumes: ["./runtime:/app/runtime:ro"]
+    environment:
+      ORDER_DB: /app/runtime/orders.db
+      ORDER_IMPORT_DISABLED: "yes"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  ui:
+    build: .
+    network_mode: "service:api"
+    command: ["streamlit", "run", "ui/app.py", "--server.address", "127.0.0.1", "--server.port", "8501", "--server.headless", "true"]
+    depends_on:
+      api:
+        condition: service_healthy
+  importer:
+    build: .
+    profiles: ["import"]
+    volumes: ["./runtime:/app/runtime", "./data/private:/input:ro"]
+    command: ["python", "scripts/import_data.py", "--directory", "/input"]

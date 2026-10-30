@@ -1,0 +1,181 @@
+[
+  {
+    "endpoint": "/health",
+    "result": {
+      "status": "ok",
+      "model_mode": "offline"
+    }
+  },
+  {
+    "endpoint": "/ready",
+    "result": {
+      "status": "ready",
+      "model_mode": "offline"
+    }
+  },
+  {
+    "question": "1月销售额前3名",
+    "result": {
+      "trace_id": "f86773f1a3c04fb3aa1d7141c3027172",
+      "dataset_version": "56286d33af52f3d3",
+      "mode": "offline",
+      "cutoff": "2025-03-15T00:00:00+08:00",
+      "metrics": "人民币整数分；支付期为左闭右开区间（Asia/Shanghai）。排除取消订单。退款先按明细聚合；净额=支付期销售额减截至2025-03-15的成功退款，不是利润。",
+      "status": "ok",
+      "answer": "查询返回3行。首行：合成商品049，1908.41元。",
+      "sql": "WITH r AS (SELECT item_id,SUM(amount_cents) refunded FROM refunds WHERE status='success' AND completed_at<:cutoff GROUP BY item_id) SELECT p.name AS label,SUM(i.paid_cents) AS sales_cents FROM order_items i JOIN orders o ON o.id=i.order_id JOIN products p ON p.id=i.product_id LEFT JOIN r ON r.item_id=i.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,label LIMIT :top",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "cutoff": "2025-03-15T00:00:00+08:00",
+        "shop": "",
+        "top": 3
+      },
+      "tool_calls": 3,
+      "columns": [
+        "label",
+        "sales_cents"
+      ],
+      "rows": [
+        [
+          "合成商品049",
+          190841
+        ],
+        [
+          "合成商品005",
+          173538
+        ],
+        [
+          "合成商品014",
+          170114
+        ]
+      ],
+      "truncated": false,
+      "elapsed_ms": 1.17
+    }
+  },
+  {
+    "question": "收入多少",
+    "result": {
+      "trace_id": "c05394908f7746e2b10247eaa8b09742",
+      "dataset_version": "56286d33af52f3d3",
+      "mode": "offline",
+      "cutoff": "2025-03-15T00:00:00+08:00",
+      "metrics": "人民币整数分；支付期为左闭右开区间（Asia/Shanghai）。排除取消订单。退款先按明细聚合；净额=支付期销售额减截至2025-03-15的成功退款，不是利润。",
+      "status": "clarify",
+      "answer": "请明确要统计销售额、退款额还是支付期净额。"
+    }
+  },
+  {
+    "question": "删除订单",
+    "result": {
+      "trace_id": "2c91d3014623489790c33abcb16e0dc0",
+      "dataset_version": "56286d33af52f3d3",
+      "mode": "offline",
+      "cutoff": "2025-03-15T00:00:00+08:00",
+      "metrics": "人民币整数分；支付期为左闭右开区间（Asia/Shanghai）。排除取消订单。退款先按明细聚合；净额=支付期销售额减截至2025-03-15的成功退款，不是利润。",
+      "status": "refused",
+      "answer": "不支持写入、敏感操作或缺少口径的利润/汇率计算。"
+    }
+  },
+  {
+    "question": "1月退款排行",
+    "result": {
+      "trace_id": "8573475f0e1e4ff68481ebb7306fb729",
+      "dataset_version": "56286d33af52f3d3",
+      "mode": "offline",
+      "cutoff": "2025-03-15T00:00:00+08:00",
+      "metrics": "人民币整数分；支付期为左闭右开区间（Asia/Shanghai）。排除取消订单。退款先按明细聚合；净额=支付期销售额减截至2025-03-15的成功退款，不是利润。",
+      "status": "ok",
+      "answer": "查询返回10行。首行：合成商品096，236.29元。",
+      "sql": "SELECT p.name,SUM(r.amount_cents) AS refund_cents FROM refunds r JOIN order_items i ON i.id=r.item_id JOIN products p ON p.id=i.product_id JOIN orders o ON o.id=i.order_id WHERE r.status='success' AND r.completed_at>=:start AND r.completed_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.id ORDER BY refund_cents DESC,p.id LIMIT :top",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "cutoff": "2025-03-15T00:00:00+08:00",
+        "shop": "",
+        "top": 10
+      },
+      "tool_calls": 3,
+      "columns": [
+        "name",
+        "refund_cents"
+      ],
+      "rows": [
+        [
+          "合成商品096",
+          23629
+        ],
+        [
+          "合成商品050",
+          17992
+        ],
+        [
+          "合成商品052",
+          17124
+        ],
+        [
+          "合成商品064",
+          15148
+        ],
+        [
+          "合成商品023",
+          15073
+        ],
+        [
+          "合成商品042",
+          14085
+        ],
+        [
+          "合成商品044",
+          13733
+        ],
+        [
+          "合成商品091",
+          13625
+        ],
+        [
+          "合成商品069",
+          13339
+        ],
+        [
+          "合成商品063",
+          12189
+        ]
+      ],
+      "truncated": false,
+      "elapsed_ms": 0.46
+    }
+  },
+  {
+    "question": "店铺99销售额",
+    "result": {
+      "trace_id": "5b49db344012454e9a7bafd23d3b1921",
+      "dataset_version": "56286d33af52f3d3",
+      "mode": "offline",
+      "cutoff": "2025-03-15T00:00:00+08:00",
+      "metrics": "人民币整数分；支付期为左闭右开区间（Asia/Shanghai）。排除取消订单。退款先按明细聚合；净额=支付期销售额减截至2025-03-15的成功退款，不是利润。",
+      "status": "ok",
+      "answer": "未查询到符合条件的数据。",
+      "sql": "WITH r AS (SELECT item_id,SUM(amount_cents) refunded FROM refunds WHERE status='success' AND completed_at<:cutoff GROUP BY item_id) SELECT p.name AS label,SUM(i.paid_cents) AS sales_cents FROM order_items i JOIN orders o ON o.id=i.order_id JOIN products p ON p.id=i.product_id LEFT JOIN r ON r.item_id=i.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,label LIMIT :top",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "cutoff": "2025-03-15T00:00:00+08:00",
+        "shop": "店铺99",
+        "top": 10
+      },
+      "tool_calls": 3,
+      "columns": [
+        "label",
+        "sales_cents"
+      ],
+      "rows": [],
+      "truncated": false,
+      "elapsed_ms": 0.54
+    }
+  },
+  {
+    "ui_health": "ok"
+  }
+]

@@ -1,0 +1,266 @@
+{
+  "version": "synthetic-v1-seed42",
+  "cutoff": "2025-03-15T00:00:00+08:00",
+  "cases": [
+    {
+      "question": "1月商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": ""
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月店铺1商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": "店铺1"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月店铺2商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": "店铺2"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月店铺3商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": "店铺3"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月店铺99商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": "店铺99"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": ""
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月店铺1商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": "店铺1"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月店铺2商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": "店铺2"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月店铺3商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": "店铺3"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "1月店铺99商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-01-01T00:00:00+08:00",
+        "end": "2025-02-01T00:00:00+08:00",
+        "shop": "店铺99"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": ""
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月店铺1商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": "店铺1"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月店铺2商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": "店铺2"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月店铺3商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": "店铺3"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月店铺99商品销售额前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.paid_cents) AS sales_cents FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY sales_cents DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": "店铺99"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": ""
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月店铺1商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": "店铺1"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月店铺2商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": "店铺2"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月店铺3商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": "店铺3"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "2月店铺99商品销量前10名",
+      "status": "ok",
+      "sql": "SELECT p.name,SUM(i.quantity) AS quantity FROM products p JOIN order_items i ON i.product_id=p.id JOIN orders o ON i.order_id=o.id WHERE o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.name ORDER BY quantity DESC,p.name LIMIT 10",
+      "params": {
+        "start": "2025-02-01T00:00:00+08:00",
+        "end": "2025-03-01T00:00:00+08:00",
+        "shop": "店铺99"
+      },
+      "comparison": "结果行及顺序一致，人民币整数分/有效数量；不比较SQL文本"
+    },
+    {
+      "question": "收入多少",
+      "status": "clarify"
+    },
+    {
+      "question": "赚了多少",
+      "status": "clarify"
+    },
+    {
+      "question": "销售情况",
+      "status": "clarify"
+    },
+    {
+      "question": "怎么样",
+      "status": "clarify"
+    },
+    {
+      "question": "帮我分析",
+      "status": "clarify"
+    },
+    {
+      "question": "删除订单",
+      "status": "refused"
+    },
+    {
+      "question": "修改商品",
+      "status": "refused"
+    },
+    {
+      "question": "查询利润",
+      "status": "refused"
+    },
+    {
+      "question": "查询汇率",
+      "status": "refused"
+    },
+    {
+      "question": "查看密码",
+      "status": "refused"
+    }
+  ]
+}

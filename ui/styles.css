@@ -1,0 +1,46 @@
+
+:root { --ink:#15263d; --muted:#748297; --accent:#00856c; }
+.stApp { background:#f6f8fb; color:var(--ink); }
+.stMainBlockContainer { max-width:1320px; padding-top:2.6rem; padding-bottom:3rem; }
+h1 { font-size:2rem!important; font-weight:750!important; letter-spacing:-.055rem; color:#15263d; }
+h2,h3 { color:#1c3048; letter-spacing:-.025rem; }
+h3 { font-size:1.05rem!important; }
+p { line-height:1.7; }
+[data-testid="stHeader"] { background:transparent; }
+[data-testid="stToolbar"] { visibility:hidden; }
+[data-testid="stSidebar"] { background:#142337; border-right:1px solid #25384f; }
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"],
+[data-testid="stSidebar"] label, [data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] { color:#d5dfec; }
+[data-testid="stSidebar"] .stButton button { background:#20354e; border:1px solid #334961; color:#edf5ff; border-radius:9px; }
+[data-testid="stSidebar"] .stButton button:hover { border-color:#54bda2; background:#2a425b; }
+[data-testid="stSidebar"] hr { border-color:#33445c; }
+[data-testid="stSidebar"] [data-testid="stRadio"] label { padding:7px 0; }
+.brand { display:flex; gap:12px; align-items:center; margin-bottom:28px; }
+.brand-mark { border-radius:12px; background:#3cd6ae; color:#102a34; font-size:20px; font-weight:850; padding:9px 12px; }
+.brand-name { color:white; font-weight:750; font-size:18px; letter-spacing:.6px; }
+.brand-sub { color:#89a0bb; font-size:11px; letter-spacing:2px; margin-top:3px; }
+.eyebrow { color:#7d8a9d; font-size:11px; letter-spacing:2px; font-weight:700; margin-bottom:8px; }
+.workspace-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:21px; }
+.status-pill { color:#087961; background:#e7f6ef; border:1px solid #cfebdf; border-radius:30px; padding:5px 12px; font-size:12px; }
+.subtle { color:#7e8b9d; font-size:12px; }
+.hero-copy { color:#687a8f; font-size:15px; margin-top:-5px; margin-bottom:25px; }
+.st-key-query_panel, .st-key-answer_panel, .st-key-import_panel, .st-key-guide_panel { background:white; border-radius:14px; box-shadow:0 3px 16px #15263d04; padding:1.4rem; }
+[data-testid="stMetric"] { padding:18px 20px; border:1px solid #e6ecf2; background:white; border-radius:12px; }
+[data-testid="stMetricLabel"] { color:#7b899a; font-size:12px; }
+[data-testid="stMetricValue"] { font-size:1.65rem; color:#1b304a; font-weight:700; }
+.stTextInput input { min-height:46px; font-size:14px; }
+.stButton button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primary"] { background:#00856c; border-color:#00856c; color:white; border-radius:9px; min-height:44px; }
+.stButton button { border-radius:9px; }
+.stTabs [data-baseweb="tab-list"] { gap:24px; border-bottom:1px solid #e8edf2; }
+.stTabs [data-baseweb="tab"] { font-size:13px; }
+.stTabs [aria-selected="true"] { color:#00856c; }
+.stTabs [data-baseweb="tab-highlight"] { background-color:#00856c; }
+.suggestion-icon { font-size:20px; margin-bottom:8px; }
+.suggestion-title { font-size:14px; font-weight:650; color:#24394f; }
+.suggestion-description { font-size:12px; color:#7c899a; margin:4px 0 14px; }
+.empty-guide { text-align:center; color:#8290a3; padding:32px 16px 8px; font-size:13px; }
+.footer-note { color:#94a0b0; font-size:11px; padding-top:24px; text-align:center; }
+@media(max-width:700px) { .stMainBlockContainer { padding-top:1.4rem; } h1 { font-size:1.6rem!important; } .workspace-meta { align-items:flex-start; gap:12px; } }
+
+[class*="st-key-suggestion_"] { background:white; padding:18px; border-radius:12px; }

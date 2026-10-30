@@ -8,11 +8,15 @@
 
 以下截图来自实际运行的页面，使用仓库生成的合成数据与本地示例模式。
 
+![订单分析工作台](docs/images/workspace.png)
+
 ![商品销售排行](docs/images/sales-ranking.png)
 
-![指标澄清](docs/images/clarification.png)
+[每日趋势](docs/images/daily-trend.png) · [店铺对比](docs/images/shop-comparison.png) · [导入页面](docs/images/imports.png) · [手机布局](docs/images/mobile.png) · [指标澄清](docs/images/clarification.png) · [危险操作拒绝](docs/images/query-refused.png)
 
-![危险操作拒绝](docs/images/query-refused.png)
+使用`uv run --with playwright python scripts/capture_ui.py`可在空闲的8000/8501端口重新生成截图。需已安装系统Chromium（可通过`CHROMIUM_PATH`指定）或Playwright浏览器。脚本只使用临时合成数据库，不访问已有订单文件。
+
+界面参考SQL Chat的数据工作台布局和Streamlit官方会话示例，详细来源、许可证及功能行为见[界面参考](docs/界面参考.md)。
 
 ## 快速开始
 
@@ -82,6 +86,7 @@ bash scripts/start.sh
 |接口|用途|
 |---|---|
 |`GET /health`|进程状态，不调用模型|
+|`GET /dataset`|订单、销售、退款、商品与日期概览，不调用模型|
 |`GET /ready`|数据库就绪检查，不调用模型|
 |`POST /chat`|提交 `question` 与 `session_id`|
 |`POST /imports`|CSV 预览或明确确认后的事务导入|
@@ -99,7 +104,7 @@ uv run pytest -q
 uv run python scripts/evaluate.py
 ```
 
-当前本地结果：33 项测试通过，Ruff 通过；30 题本地示例评测通过，包含 20 题结果比较、5 题澄清、5 题拒绝。模型工具循环使用 MockTransport 独立测试，真实模型评测另行记录，不与本地结果混用。
+当前本地结果：40 项测试通过，Ruff 通过；30 题本地示例评测通过，包含 20 题结果比较、5 题澄清、5 题拒绝。模型工具循环使用 MockTransport 独立测试，真实模型评测另行记录，不与本地结果混用。
 
 已验证干净目录安装、数据生成、导入预览、真实 API 请求、Docker 内查询和备份恢复。详细证据及限制见[验证记录](docs/验证记录.md)，结构与关键模块见[设计与学习](docs/设计与学习.md)，参考资料见[来源](docs/来源.md)。
 

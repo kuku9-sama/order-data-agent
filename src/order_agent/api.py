@@ -6,10 +6,10 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from .agent import Agent
-from .config import DB_PATH
+from .config import CUTOFF, DB_PATH
 from .imports import import_csv
 from .models import ChatRequest, ImportRequest
-from .tools import structure
+from .tools import query, structure
 
 app = FastAPI(title="中文订单分析助手", version="0.1.0")
 from .provider import DeepSeekAgent
@@ -67,3 +67,26 @@ def imports(body: ImportRequest):
 @app.post("/model/test")
 def model_test():
     return {"status": "unconfigured", "message": "当前仅离线替身；无外部模型调用或费用。"}
+
+
+@app.get("/dataset")
+def dataset():
+    """概览只执行固定只读查询，不调用模型。"""
+    with agent.lock:
+        rows = query(
+            agent.path,
+            """
+            SELECT COUNT(*) AS orders,
+                   COALESCE(SUM(CASE WHEN status='paid' THEN paid_cents ELSE 0 END),0) AS sales_cents,
+                   MIN(paid_at) AS date_start, MAX(paid_at) AS date_end,
+                   (SELECT COUNT(*) FROM products) AS products,
+                   (SELECT COALESCE(SUM(amount_cents),0) FROM refunds
+                    WHERE status='success' AND completed_at<:cutoff) AS refund_cents
+            FROM orders
+        """,
+            {"cutoff": CUTOFF},
+        )
+        result = dict(zip(rows["columns"], rows["rows"][0]))
+        result["date_start"] = result["date_start"] or "无数据"
+        result["date_end"] = result["date_end"] or "无数据"
+        return result

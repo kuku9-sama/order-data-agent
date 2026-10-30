@@ -8,6 +8,8 @@ RUN --mount=type=secret,id=proxy_ca \
     if [ -f /run/secrets/proxy_ca ]; then export SSL_CERT_FILE=/run/secrets/proxy_ca; fi; \
     uv sync --frozen --no-dev
 COPY ui ./ui
+COPY .streamlit ./.streamlit
+COPY data/sample ./data/sample
 COPY scripts ./scripts
 ENV PATH="/app/.venv/bin:$PATH" ORDER_DB=/app/runtime/orders.db
 CMD ["uvicorn", "order_agent.api:app", "--host", "0.0.0.0", "--port", "8000"]

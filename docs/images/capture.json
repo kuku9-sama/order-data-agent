@@ -1,28 +1,26 @@
 {
   "mode": "offline",
-  "source": "真实Chromium页面，固定种子合成数据",
-  "viewport": [
-    1440,
-    1500
+  "source": "Playwright+系统Chromium，隔离固定种子合成数据库；未调用外部模型",
+  "desktop": [
+    1600,
+    1250
+  ],
+  "result_view": [
+    1600,
+    1600
+  ],
+  "mobile": [
+    390,
+    1700
   ],
   "checks": [
-    {
-      "question": "1月商品销售额前10名",
-      "expected_text": "查询返回10行",
-      "file": "sales-ranking.png",
-      "status": "passed"
-    },
-    {
-      "question": "收入多少",
-      "expected_text": "请明确要统计销售额",
-      "file": "clarification.png",
-      "status": "passed"
-    },
-    {
-      "question": "删除订单",
-      "expected_text": "不支持写入",
-      "file": "query-refused.png",
-      "status": "passed"
-    }
+    "首页推荐问题执行与销售排行图表",
+    "结果标签切换、真实CSV下载与SQL查看",
+    "clarification",
+    "query-refused",
+    "每日趋势28天、店铺净额3个店铺的推荐卡片分组",
+    "导入冲突反馈、预览校验、确认写入与概览刷新（隔离合成数据库）",
+    "指标口径导航",
+    "390px移动布局无页面横向溢出"
   ]
 }

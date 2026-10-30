@@ -141,3 +141,57 @@ def test_api(db, monkeypatch):
         assert c.post("/chat", json={"question": "1月销售额"}).json()["status"] == "ok"
         assert c.post("/imports", json={"files": {}, "preview": False}).status_code == 400
         assert c.post("/chat", json={"question": ""}).status_code == 422
+
+
+def test_dataset_overview_is_real_readonly_data(db, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from order_agent import api
+
+    monkeypatch.setattr(api, "agent", Agent(db))
+    with TestClient(api.app) as client:
+        result = client.get("/dataset")
+        assert result.status_code == 200
+        data = result.json()
+        assert data["orders"] == 1000 and data["products"] == 100
+        assert data["date_start"].startswith("2025-01-01")
+        with sqlite3.connect(db) as con:
+            sales = con.execute("SELECT SUM(paid_cents) FROM orders WHERE status='paid'").fetchone()[0]
+            refunds = con.execute("SELECT SUM(amount_cents) FROM refunds WHERE status='success'").fetchone()[
+                0
+            ]
+        assert data["sales_cents"] == sales and data["refund_cents"] == refunds
+
+
+def test_daily_sales_and_month_followup(db):
+    a = Agent(db)
+    result = a.chat("2月按日销售额", "daily")
+    assert len(result["rows"]) == 28
+    assert all(row[0].startswith("2025-02-") for row in result["rows"])
+    with sqlite3.connect(db) as con:
+        reference = con.execute(
+            "SELECT substr(paid_at,1,10),SUM(paid_cents) FROM orders WHERE status='paid' AND paid_at>='2025-02-01' AND paid_at<'2025-03-01' GROUP BY substr(paid_at,1,10)"
+        ).fetchall()
+    assert dict(result["rows"]) == dict(reference)
+    january = a.chat("改成1月", "daily")
+    assert len(january["rows"]) == 31
+    assert all(row[0].startswith("2025-01-") for row in january["rows"])
+
+
+def test_shop_net_is_grouped_by_shop(db):
+    result = Agent(db).chat("店铺净额前10名", "shops")
+    assert {row[0] for row in result["rows"]} == {"店铺1", "店铺2", "店铺3"}
+    with sqlite3.connect(db) as con:
+        reference = con.execute(
+            "SELECT o.shop,SUM(i.paid_cents-(SELECT COALESCE(SUM(r.amount_cents),0) FROM refunds r WHERE r.item_id=i.id AND r.status='success' AND r.completed_at<'2025-03-15T00:00:00+08:00')) FROM orders o JOIN order_items i ON i.order_id=o.id WHERE o.status='paid' GROUP BY o.shop"
+        ).fetchall()
+    assert dict(result["rows"]) == dict(reference)
+
+
+def test_daily_refund_uses_completion_date(db):
+    result = Agent(db).chat("2月按日退款额", "refunds")
+    with sqlite3.connect(db) as con:
+        reference = con.execute(
+            "SELECT substr(completed_at,1,10),SUM(amount_cents) FROM refunds WHERE status='success' AND completed_at>='2025-02-01' AND completed_at<'2025-03-01' GROUP BY substr(completed_at,1,10)"
+        ).fetchall()
+    assert dict(result["rows"]) == dict(reference)

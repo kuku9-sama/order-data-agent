@@ -42,8 +42,21 @@ class OfflineModel:
         }[month]
         shop_match = re.search(r"店铺(\d+)", question)
         shop = "店铺" + shop_match.group(1) if shop_match else context.get("shop", "")
+        group_by = (
+            "day"
+            if "按日" in question
+            else "shop"
+            if "店铺" in question and not shop_match
+            else "product"
+            if "商品" in question
+            else context.get("group_by", "product")
+        )
+        if group_by == "shop" and "店铺" in question and not shop_match:
+            shop = ""
         top_match = re.search(r"(?:前|top\s*)(\d+)", question, re.IGNORECASE)
         top = min(max(int(top_match.group(1)), 1), 200) if top_match else context.get("top", 10)
+        if group_by == "day" and "按日" in question and not top_match:
+            top = 200
         params = {
             "start": start + "T00:00:00+08:00",
             "end": end + "T00:00:00+08:00",
@@ -54,7 +67,14 @@ class OfflineModel:
         where = "o.status='paid' AND o.paid_at>=:start AND o.paid_at<:end AND (:shop='' OR o.shop=:shop)"
         prefix = "WITH r AS (SELECT item_id,SUM(amount_cents) refunded FROM refunds WHERE status='success' AND completed_at<:cutoff GROUP BY item_id) "
         if metric == "退款":
-            sql = "SELECT p.name,SUM(r.amount_cents) AS refund_cents FROM refunds r JOIN order_items i ON i.id=r.item_id JOIN products p ON p.id=i.product_id JOIN orders o ON o.id=i.order_id WHERE r.status='success' AND r.completed_at>=:start AND r.completed_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY p.id ORDER BY refund_cents DESC,p.id LIMIT :top"
+            refund_group = (
+                "substr(r.completed_at,1,10)"
+                if group_by == "day"
+                else "o.shop"
+                if group_by == "shop"
+                else "p.name"
+            )
+            sql = f"SELECT {refund_group} AS label,SUM(r.amount_cents) AS refund_cents FROM refunds r JOIN order_items i ON i.id=r.item_id JOIN products p ON p.id=i.product_id JOIN orders o ON o.id=i.order_id WHERE r.status='success' AND r.completed_at>=:start AND r.completed_at<:end AND (:shop='' OR o.shop=:shop) GROUP BY {refund_group} ORDER BY refund_cents DESC,label LIMIT :top"
         elif metric in ("明细", "异常"):
             sql = (
                 "SELECT o.external_id,o.shop,o.status,o.paid_at,o.paid_cents FROM orders o WHERE "
@@ -63,7 +83,11 @@ class OfflineModel:
             )
         else:
             group = (
-                "substr(o.paid_at,1,10)" if metric == "按日" else "o.shop" if metric == "店铺" else "p.name"
+                "substr(o.paid_at,1,10)"
+                if group_by == "day"
+                else "o.shop"
+                if group_by == "shop"
+                else "p.name"
             )
             value = (
                 "SUM(i.quantity)"
@@ -81,7 +105,7 @@ class OfflineModel:
             "status": "query",
             "sql": sql,
             "params": params,
-            "context": {"metric": metric, "month": month, "shop": shop, "top": top},
+            "context": {"metric": metric, "month": month, "shop": shop, "top": top, "group_by": group_by},
         }
 
 

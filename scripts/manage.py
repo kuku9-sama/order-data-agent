@@ -18,4 +18,4 @@ else:
         for table in ["products", "orders", "order_items", "refunds"]:
             cur = con.execute(f"SELECT * FROM {table} LIMIT 0")
             with open(f"data/sample/{table}.csv", "w", newline="") as f:
-                csv.writer(f).writerow([r[0] for r in cur.description])
+                csv.writer(f, lineterminator="\n").writerow([r[0] for r in cur.description])
